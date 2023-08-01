@@ -63,7 +63,7 @@ order by 1,2
  where dea.continent is not null
  order by 2,3
 
- -- to know how many people had take vaccentation 
+ -- to know how many people had taken vaccentation 
  with popvsvac (continent , location , date , population, new_vacccinations, countvaccinations) as
  (
  select dea.continent ,dea.location, dea.date, dea.population ,vac.new_vaccinations 
