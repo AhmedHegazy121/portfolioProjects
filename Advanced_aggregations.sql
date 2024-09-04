@@ -2,7 +2,7 @@
 select 
 	ProductID,
 	OrderDate,
-Sum(Sales)over(Partition by ProductID) TotalSales
+	Sum(Sales)over(Partition by ProductID) TotalSales
  from Sales.Orders
 
 
