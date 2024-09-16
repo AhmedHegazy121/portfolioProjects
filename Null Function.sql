@@ -1,3 +1,28 @@
+-- The Difference amoung Null , Empty string and Blank spaces. 
+---  data policy : set of rules that defines how  data should be handled.
+--policy1 : only use Nulls and empty strings but aviod blank spaces by using Trim to remove blank spaces.
+--policy2 :  only use nulls and aviod using empty strings and blank spaces by using Nullif. 
+--policy3 : use the default Value ' unknown' and avoiid using nuls , empty strings , and blank spaces.
+/* use cases :  stuck with policy 2  during data preparation before inserting int a database to optimize storage and performance.
+ stuck with policy 3  during data preparation before using  it in reporting to improve readiblity and reduce confusion.nce.*/
+
+with Orders as(
+	select 1 Id , 'A' Category union
+	select 2 , null union --it's null unknown !
+	select 3 ,'' union -- empty string has no length equel zero
+	select 4 , ' ' -- blank spaeces has one space
+)
+select
+	* ,
+	DATALENGTH(Category) Categorylen,
+	DATALENGTH(Trim(Category)) Policy1,
+	Nullif(Trim(Category), '') Policy2,
+	coalesce(Nullif(Trim(Category), ''),'Unknown')Policy3
+from Orders
+
+
+
+
 -- Find the average scores of the customers.
 SELECT [CustomerID]
       ,[FirstName]
