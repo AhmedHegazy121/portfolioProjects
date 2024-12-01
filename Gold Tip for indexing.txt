@@ -1,0 +1,72 @@
+-----  Avoiding over-indexing
+
+- indexes slow down write performance when data is inserted, updated, or deleted, the database has to update indexes.
+- too many indexes can confuse the Execution plan. increase planning time choose a suboptimal plan.
+
+ 
+
+----------//  Two strategies
+
+1- Optimize Read Performance
+2- optimize write Performance
+
+------------//  OLAP 
+
+- use with ELT >>  Write performance  and with Report >>  Read performance.
+- Goal optimize Read performance.
+
+* use case
+
+cause we always have a fact table and a dimension table. fact is bigger than Dimension normally those tables are completely denormalized
+
+- I will make an all-fact table column store index because everything that is to be done on OLAP is to aggregate large data sets.
+
+
+-------------- // OLTP
+
+- There are a lot of transactions between writing and reading. 
+- but the mean goal is to optimize write performance.
+
+* use case
+
+there are a lot of tables and they have different sizes and there are a lot of relationships between all those tables there is a lot of PK and FK and normally those tables are completely normalized >> so they are like small pieces 
+
+- make Clustered index pk  for every primary key in our tables can improve a  lot of stuff like searching sorting and joining tables together
+tip be aware that using an index in OLTP can cause Slow Writing performance.
+
+
+
+------    Usage Patterns indexing
+
+1- identify frequently used Tables & Columns
+2- Most important Tables and Columns
+3- choose Right index
+4- Test Index
+
+---* prompt AI
+
+Analyze the following SQL queries and generate a report on table and column usage statistics. For each table, provide:
+- The Total number of times the table is used across all queries.
+- A breakdown of times for each column in the table, showing.
+- the number of times each column appears.
+the primary purpose of the column's usage (e.g, filtering, joining, grouping, aggregating)
+sort the tables in descending order based on their total usage.
+
+
+
+---- Scenario-based indexing
+
+- identify slow queries
+- check the Execution plan
+- choose Right index
+- Test compare Execution plans 
+
+---- Monitoring & Maintenance
+
+- Monitor index usage
+- Monitor Missing Indexes
+- Monitor Duplicate Indexes
+- update statistics
+- Monitor Fragmentations
+
+
